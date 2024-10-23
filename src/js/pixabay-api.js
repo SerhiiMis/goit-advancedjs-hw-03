@@ -1,5 +1,8 @@
 // Access the API key using import.meta.env
 const API_KEY = import.meta.env.VITE_API_KEY;
+console.log('API Key:', API_KEY); // Check if the API key is correctly loaded
+console.log('All Environment Variables:', import.meta.env); // Log all environment variables
+
 const BASE_URL = 'https://pixabay.com/api/?';
 const QUERY_KEY = 'q';
 
@@ -15,6 +18,7 @@ export function fetchImages(query) {
   searchParams.set(QUERY_KEY, refactoredQuery);
 
   const url = BASE_URL + searchParams.toString();
+  console.log('API URL:', url);
   return fetch(url).then(response => {
     if (!response.ok) {
       throw new Error(

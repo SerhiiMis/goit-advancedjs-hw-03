@@ -29,6 +29,7 @@ function handleSearchSubmit(event) {
       galleryLightbox.refresh();
     })
     .catch(error => {
+      console.error('Error fetching images:', error);
       loader.classList.add('is-hidden');
       showWarning('Sorry, something went wrong. Please try again!');
     });
