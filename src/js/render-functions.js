@@ -1,4 +1,4 @@
-import { gallery } from './constants';
+import { gallery } from './constans';
 import { showError } from './toast';
 
 export function renderImages(images) {
