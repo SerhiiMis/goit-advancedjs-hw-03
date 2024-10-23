@@ -2,13 +2,13 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import './css/styles.css';
-import { gallery } from './js/constans';
 import { fetchImages } from './js/pixabay-api';
 import { renderImages } from './js/render-functions';
 import { showWarning } from './js/toast';
 
-const form = document.querySelector('.search-form');
+const form = document.querySelector('.action-form');
 const loader = document.querySelector('.loader');
+export const gallery = document.querySelector('.gallery');
 
 form.addEventListener('submit', handleSearchSubmit);
 

@@ -1,4 +1,5 @@
-const API_KEY = VITE_API_KEY;
+// Access the API key using import.meta.env
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://pixabay.com/api/?';
 const QUERY_KEY = 'q';
 
@@ -24,7 +25,7 @@ export function fetchImages(query) {
   });
 }
 
-//query may not exceed 100 characters
+// Query may not exceed 100 characters
 function prepareQuery(query) {
   const words = query.split(/\s+/);
   let refactoredQuery = '';
