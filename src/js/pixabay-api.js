@@ -1,8 +1,4 @@
-// Access the API key using import.meta.env
-const API_KEY = import.meta.env.VITE_API_KEY;
-console.log('API Key:', API_KEY); // Check if the API key is correctly loaded
-console.log('All Environment Variables:', import.meta.env); // Log all environment variables
-
+const API_KEY = '46684790-07ddeec26d5334b4228888751';
 const BASE_URL = 'https://pixabay.com/api/?';
 const QUERY_KEY = 'q';
 
@@ -11,11 +7,13 @@ const searchParams = new URLSearchParams({
   orientation: 'horizontal',
   image_type: 'photo',
   safesearch: true,
+  per_page: 12, // Set the number of results per page
 });
 
-export function fetchImages(query) {
+export function fetchImages(query, page = 1) {
   const refactoredQuery = prepareQuery(query);
   searchParams.set(QUERY_KEY, refactoredQuery);
+  searchParams.set('page', page); // Set the page number
 
   const url = BASE_URL + searchParams.toString();
   console.log('API URL:', url);

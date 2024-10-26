@@ -1,14 +1,20 @@
 import { gallery } from '../main';
 import { showError } from './toast';
 
-export function renderImages(images) {
+export function renderImages(images, append = false) {
   if (images.length === 0) {
     showError(
       'Sorry, there are no images matching your search query. Please try again!'
     );
     return;
   }
-  gallery.innerHTML = createGalleryMarkup(images);
+
+  const markup = createGalleryMarkup(images);
+  if (append) {
+    gallery.insertAdjacentHTML('beforeend', markup); // Append images
+  } else {
+    gallery.innerHTML = markup; // Replace images
+  }
 }
 
 const createGalleryMarkup = images =>

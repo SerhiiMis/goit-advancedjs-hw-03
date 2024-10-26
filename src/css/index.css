@@ -1,8 +1,7 @@
-.welcome-main {
+.action-form {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin-top: 20px;
 }
 
 .container.welcome h1 {
