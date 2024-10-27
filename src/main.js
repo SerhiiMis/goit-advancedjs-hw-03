@@ -1,7 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-
 import './css/styles.css';
+
 import { fetchImages } from './js/pixabay-api';
 import { renderImages } from './js/render-functions';
 import { showWarning } from './js/toast';
@@ -12,35 +12,41 @@ export const gallery = document.querySelector('.gallery');
 
 let currentQuery = '';
 
+let galleryLightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 form.addEventListener('submit', handleSearchSubmit);
 
 function handleSearchSubmit(event) {
   event.preventDefault();
   currentQuery = form.elements.query.value.trim();
-  if (currentQuery === '') {
-    return showWarning('Please enter a valid query!');
-  }
+
   gallery.innerHTML = '';
   loader.classList.remove('is-hidden');
 
+  if (currentQuery === '') {
+    loader.classList.add('is-hidden');
+    return showWarning('Please enter a valid query!');
+  }
+
   fetchImages(currentQuery)
     .then(data => {
-      if (data.hits.length > 0) {
-        renderImages(data.hits);
+      if (data.hits.length === 0) {
+        showWarning('No results found. Please try another search term.');
       } else {
-        showWarning('No results found for your search.');
+        renderImages(data.hits);
+        galleryLightbox.refresh();
       }
-      loader.classList.add('is-hidden');
-      form.reset();
-      galleryLightbox.refresh();
     })
     .catch(error => {
-      loader.classList.add('is-hidden');
+      console.error('Error fetching images:', error);
       showWarning('Sorry, something went wrong. Please try again!');
+    })
+    .finally(() => {
+      loader.classList.add('is-hidden');
     });
-}
 
-let galleryLightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+  form.reset();
+}
