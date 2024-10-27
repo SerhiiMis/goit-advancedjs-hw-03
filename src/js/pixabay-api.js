@@ -1,4 +1,4 @@
-const API_KEY = ${{ secrets.VITE_API_KEY }};
+const API_KEY = VITE_API_KEY;
 const BASE_URL = 'https://pixabay.com/api/?';
 const QUERY_KEY = 'q';
 
