@@ -11,9 +11,9 @@ export function renderImages(images, append = false) {
 
   const markup = createGalleryMarkup(images);
   if (append) {
-    gallery.insertAdjacentHTML('beforeend', markup); // Append images
+    gallery.insertAdjacentHTML('beforeend', markup);
   } else {
-    gallery.innerHTML = markup; // Replace images
+    gallery.innerHTML = markup;
   }
 }
 

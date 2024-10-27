@@ -1,5 +1,5 @@
 const API_KEY = '46684790-07ddeec26d5334b4228888751';
-const BASE_URL = 'https://pixabay.com/api/?';
+const BASE_URL = 'https://pixabay.com/api/';
 const QUERY_KEY = 'q';
 
 const searchParams = new URLSearchParams({
@@ -7,27 +7,26 @@ const searchParams = new URLSearchParams({
   orientation: 'horizontal',
   image_type: 'photo',
   safesearch: true,
-  per_page: 12, // Set the number of results per page
 });
 
-export function fetchImages(query, page = 1) {
+export function fetchImages(query) {
   const refactoredQuery = prepareQuery(query);
   searchParams.set(QUERY_KEY, refactoredQuery);
-  searchParams.set('page', page); // Set the page number
+  const url = `${BASE_URL}?${searchParams.toString()}`;
 
-  const url = BASE_URL + searchParams.toString();
-  console.log('API URL:', url);
-  return fetch(url).then(response => {
-    if (!response.ok) {
-      throw new Error(
-        `Error fetching images with status ${response.status} and response ${response.statusText}`
-      );
-    }
-    return response.json();
-  });
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error fetching images: ${response.status}`);
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+      throw error;
+    });
 }
 
-// Query may not exceed 100 characters
 function prepareQuery(query) {
   const words = query.split(/\s+/);
   let refactoredQuery = '';
